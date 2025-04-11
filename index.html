@@ -12,22 +12,52 @@
 
   <div class="container">
     <h2>Enter Details Below</h2>
+
     <form id="costForm">
-      <label for="componentName">Component Name:</label>
-      <input type="text" id="componentName" name="componentName" required>
+      <label for="component">Component Name:</label>
+      <input type="text" id="component" placeholder="e.g., Arduino Uno" required />
 
       <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" required>
+      <input type="number" id="quantity" min="1" value="1" required />
 
-      <label for="unitCost">Unit Cost (₹):</label>
-      <input type="number" id="unitCost" name="unitCost" required>
-
-      <button type="submit">Calculate Total Cost</button>
+      <button type="submit">Estimate Cost</button>
     </form>
 
-    <div id="result"></div>
+    <div id="result" style="margin-top: 20px;"></div>
   </div>
-  
-  <script src="script.js"></script>
+
+  <script>
+    const componentPrices = {
+      "arduino uno": 500,
+      "raspberry pi 4": 3000,
+      "breadboard": 80,
+      "jumper wires": 50,
+      "ldr sensor": 30,
+      "ultrasonic sensor": 120,
+      "dc motor": 150,
+      "servo motor": 250,
+      "relay module": 100
+    };
+
+    document.getElementById('costForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const component = document.getElementById('component').value.toLowerCase().trim();
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      if (componentPrices.hasOwnProperty(component)) {
+        const costPerItem = componentPrices[component];
+        const total = costPerItem * quantity;
+
+        document.getElementById('result').innerHTML = `
+          <strong>Total Cost for ${quantity} ${component}(s): ₹${total}</strong>
+        `;
+      } else {
+        document.getElementById('result').innerHTML = `
+          <span style="color: red;">Component not found in our price list.</span>
+        `;
+      }
+    });
+  </script>
 </body>
 </html>
