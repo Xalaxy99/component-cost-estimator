@@ -1,63 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Component Cost Estimator</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Component Cost Estimator</h1>
   </header>
 
-  <div class="container">
-    <h2>Enter Details Below</h2>
+  <main>
+    <section class="component-list">
+      <h2>Available Components</h2>
+      <div id="components-container" class="components-grid">
+        <!-- Components will be loaded here -->
+      </div>
+    </section>
 
-    <form id="costForm">
-      <label for="component">Component Name:</label>
-      <input type="text" id="component" placeholder="e.g., Arduino Uno" required />
-
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" min="1" value="1" required />
-
-      <button type="submit">Estimate Cost</button>
-    </form>
-
-    <div id="result" style="margin-top: 20px;"></div>
-  </div>
+    <section class="cart">
+      <h2>Cart Summary</h2>
+      <div id="cart-container">
+        <p>No components added yet.</p>
+      </div>
+      <div id="total-price"></div>
+      <button onclick="exportCart()">Export Price List</button>
+    </section>
+  </main>
 
   <script>
-    const componentPrices = {
-      "arduino uno": 500,
-      "raspberry pi 4": 3000,
-      "breadboard": 80,
-      "jumper wires": 50,
-      "ldr sensor": 30,
-      "ultrasonic sensor": 120,
-      "dc motor": 150,
-      "servo motor": 250,
-      "relay module": 100
-    };
-
-    document.getElementById('costForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const component = document.getElementById('component').value.toLowerCase().trim();
-      const quantity = parseInt(document.getElementById('quantity').value);
-
-      if (componentPrices.hasOwnProperty(component)) {
-        const costPerItem = componentPrices[component];
-        const total = costPerItem * quantity;
-
-        document.getElementById('result').innerHTML = `
-          <strong>Total Cost for ${quantity} ${component}(s): ₹${total}</strong>
-        `;
-      } else {
-        document.getElementById('result').innerHTML = `
-          <span style="color: red;">Component not found in our price list.</span>
-        `;
+    const components = [
+      {
+        name: "Arduino Uno",
+        price: 500,
+        image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg"
+      },
+      {
+        name: "Breadboard",
+        price: 100,
+        image: "https://m.media-amazon.com/images/I/61n+Rpq8xgL._SX522_.jpg"
+      },
+      {
+        name: "Jumper Wires (Male-Female)",
+        price: 50,
+        image: "https://m.media-amazon.com/images/I/71kKSkL+J3L._SX522_.jpg"
+      },
+      {
+        name: "Resistor Pack (100 pcs)",
+        price: 80,
+        image: "https://m.media-amazon.com/images/I/81VElry8UuL._SX522_.jpg"
+      },
+      {
+        name: "Capacitor Kit",
+        price: 120,
+        image: "https://m.media-amazon.com/images/I/71wP6cD7bQL._SX522_.jpg"
+      },
+      {
+        name: "IR Sensor",
+        price: 70,
+        image: "https://m.media-amazon.com/images/I/61pJPzgrpxL._SX522_.jpg"
       }
-    });
+    ];
+
+    let cart = {};
+
+    function renderComponents() {
+      const container = document.getElementById("components-container");
+      components.forEach((comp, index) => {
+        const item = document.createElement("div");
+        item.className = "component-item";
+        item.innerHTML = `
+          <img src="${comp.image}" alt="${comp.name}">
+          <h3>${comp.name}</h3>
+          <p>Price: ₹${comp.price}</p>
+          <div class="quantity">
+            <button onclick="updateQuantity(${index}, -1)">-</button>
+            <span id="qty-${index}">0</span>
+            <button onclick="updateQuantity(${index}, 1)">+</button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function updateQuantity(index, delta) {
+      if (!cart[index]) cart[index] = 0;
+      cart[index] += delta;
+      if (cart[index] < 0) cart[index] = 0;
+      document.getElementById(`qty-${index}`).innerText = cart[index];
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cart-container");
+      container.innerHTML = "";
+      let total = 0;
+      Object.keys(cart).forEach(index => {
+        const comp = components[index];
+        const qty = cart[index];
+        if (qty > 0) {
+          const itemTotal = qty * comp.price;
+          total += itemTotal;
+          const div = document.createElement("div");
+          div.className = "cart-item";
+          div.innerHTML = `${comp.name} x ${qty} = ₹${itemTotal}`;
+          container.appendChild(div);
+        }
+      });
+      document.getElementById("total-price").innerText = `Total: ₹${total}`;
+    }
+
+    function exportCart() {
+      let output = "Component Name,Quantity,Unit Price,Total\n";
+      let total = 0;
+      Object.keys(cart).forEach(index => {
+        const comp = components[index];
+        const qty = cart[index];
+        if (qty > 0) {
+          const itemTotal = qty * comp.price;
+          total += itemTotal;
+          output += `${comp.name},${qty},${comp.price},${itemTotal}\n`;
+        }
+      });
+      output += `,,Total,₹${total}`;
+      const blob = new Blob([output], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "component_cart.csv";
+      a.click();
+    }
+
+    window.onload = renderComponents;
   </script>
 </body>
 </html>
