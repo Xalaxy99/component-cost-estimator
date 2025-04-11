@@ -1,43 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Component Cost Estimator</title>
+  <title>Engineering Project Component Estimator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f5;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    h2 {
+      margin-top: 30px;
+      color: #444;
+    }
+    .component {
+      margin: 10px 0;
+    }
+    .category {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .total {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 30px;
+      color: green;
+    }
+    input[type="number"] {
+      width: 60px;
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Component Cost Estimator</h1>
 
-    <label>Resistors (₹1 each): </label><input type="number" id="resistor" value="0" min="0"><br>
-    <label>Capacitors (₹3 each): </label><input type="number" id="capacitor" value="0" min="0"><br>
-    <label>Diodes (₹5 each): </label><input type="number" id="diode" value="0" min="0"><br>
-    <label>Transistors (₹8 each): </label><input type="number" id="transistor" value="0" min="0"><br>
-    <label>LEDs (₹2 each): </label><input type="number" id="led" value="0" min="0"><br>
-    <label>555 Timer IC (₹10 each): </label><input type="number" id="ic555" value="0" min="0"><br>
-    <label>Arduino Uno (₹400 each): </label><input type="number" id="arduino" value="0" min="0"><br>
-    <label>Breadboards (₹60 each): </label><input type="number" id="breadboard" value="0" min="0"><br>
-    <label>Jumper Wire Sets (₹20 each): </label><input type="number" id="jumper" value="0" min="0"><br>
-    <label>LM317 Regulator (₹15 each): </label><input type="number" id="lm317" value="0" min="0"><br><br>
+  <h1>Project Component Estimator</h1>
 
-    <button onclick="calculateTotal()">Calculate Total</button>
+  <div class="category">
+    <h2>Passive Components</h2>
+    <div class="component">Resistor ₹1 <input type="number" value="0" min="0" data-price="1"></div>
+    <div class="component">Capacitor ₹2 <input type="number" value="0" min="0" data-price="2"></div>
+    <div class="component">Inductor ₹7 <input type="number" value="0" min="0" data-price="7"></div>
+  </div>
 
-    <p id="totalCost">Total Estimated Cost: ₹0</p>
+  <div class="category">
+    <h2>Active Components</h2>
+    <div class="component">Transistor ₹5 <input type="number" value="0" min="0" data-price="5"></div>
+    <div class="component">MOSFET ₹18 <input type="number" value="0" min="0" data-price="18"></div>
+    <div class="component">Voltage Regulator ₹15 <input type="number" value="0" min="0" data-price="15"></div>
+    <div class="component">Op-Amp ₹10 <input type="number" value="0" min="0" data-price="10"></div>
+  </div>
 
-    <script>
-        function calculateTotal() {
-            let total = 0;
-            total += parseInt(document.getElementById("resistor").value) * 1;
-            total += parseInt(document.getElementById("capacitor").value) * 3;
-            total += parseInt(document.getElementById("diode").value) * 5;
-            total += parseInt(document.getElementById("transistor").value) * 8;
-            total += parseInt(document.getElementById("led").value) * 2;
-            total += parseInt(document.getElementById("ic555").value) * 10;
-            total += parseInt(document.getElementById("arduino").value) * 400;
-            total += parseInt(document.getElementById("breadboard").value) * 60;
-            total += parseInt(document.getElementById("jumper").value) * 20;
-            total += parseInt(document.getElementById("lm317").value) * 15;
+  <div class="category">
+    <h2>Modules & Boards</h2>
+    <div class="component">Arduino Uno ₹500 <input type="number" value="0" min="0" data-price="500"></div>
+    <div class="component">NodeMCU ₹350 <input type="number" value="0" min="0" data-price="350"></div>
+    <div class="component">DHT11 Sensor ₹45 <input type="number" value="0" min="0" data-price="45"></div>
+    <div class="component">OLED Display ₹150 <input type="number" value="0" min="0" data-price="150"></div>
+    <div class="component">Relay Module ₹60 <input type="number" value="0" min="0" data-price="60"></div>
+  </div>
 
-            document.getElementById("totalCost").innerText = "Total Estimated Cost: ₹" + total;
-        }
-    </script>
+  <div class="total">Total: ₹<span id="totalCost">0</span></div>
+
+  <script>
+    const inputs = document.querySelectorAll('input[type="number"]');
+    const totalSpan = document.getElementById('totalCost');
+
+    function calculateTotal() {
+      let total = 0;
+      inputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseFloat(input.dataset.price);
+        total += qty * price;
+      });
+      totalSpan.innerText = total;
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('input', calculateTotal);
+    });
+
+    // Initial total on load
+    calculateTotal();
+  </script>
+
 </body>
 </html>
 
