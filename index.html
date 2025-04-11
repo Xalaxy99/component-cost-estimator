@@ -1,61 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Component Cost Estimator</title>
+    <title>Component Cost Estimator</title>
 </head>
 <body>
-  <h1>Component Cost Estimator</h1>
+    <h1>Component Cost Estimator</h1>
 
-  <label>Resistors (₹1 each): </label><input type="number" id="resistor" value="0"><br>
-  <label>Capacitors (₹3 each): </label><input type="number" id="capacitor" value="0"><br>
-  <label>Diodes (₹5 each): </label><input type="number" id="diode" value="0"><br>
-  <label>Transistors (₹8 each): </label><input type="number" id="transistor" value="0"><br>
-  <label>LEDs (₹2 each): </label><input type="number" id="led" value="0"><br>
-  <label>555 Timer IC (₹10 each): </label><input type="number" id="ic555" value="0"><br>
-  <label>Arduino Uno (₹400 each): </label><input type="number" id="arduino" value="0"><br>
-  <label>Breadboards (₹60 each): </label><input type="number" id="breadboard" value="0"><br>
-  <label>Jumper Wire Sets (₹20 each): </label><input type="number" id="jumper" value="0"><br>
-  <label>LM317 Regulator (₹15 each): </label><input type="number" id="lm317" value="0"><br>
+    <label>Resistors (₹1 each): </label><input type="number" id="resistor" value="0" min="0"><br>
+    <label>Capacitors (₹3 each): </label><input type="number" id="capacitor" value="0" min="0"><br>
+    <label>Diodes (₹5 each): </label><input type="number" id="diode" value="0" min="0"><br>
+    <label>Transistors (₹8 each): </label><input type="number" id="transistor" value="0" min="0"><br>
+    <label>LEDs (₹2 each): </label><input type="number" id="led" value="0" min="0"><br>
+    <label>555 Timer IC (₹10 each): </label><input type="number" id="ic555" value="0" min="0"><br>
+    <label>Arduino Uno (₹400 each): </label><input type="number" id="arduino" value="0" min="0"><br>
+    <label>Breadboards (₹60 each): </label><input type="number" id="breadboard" value="0" min="0"><br>
+    <label>Jumper Wire Sets (₹20 each): </label><input type="number" id="jumper" value="0" min="0"><br>
+    <label>LM317 Regulator (₹15 each): </label><input type="number" id="lm317" value="0" min="0"><br><br>
 
-  <br>
-  <button onclick="calculate()">Calculate Total</button>
-  <p id="total"></p>
+    <button onclick="calculateTotal()">Calculate Total</button>
 
-  <script>
-    function calculate() {
-      const prices = {
-        resistor: 1,
-        capacitor: 3,
-        diode: 5,
-        transistor: 8,
-        led: 2,
-        ic555: 10,
-        arduino: 400,
-        breadboard: 60,
-        jumper: 20,
-        lm317: 15
-      };
-     <label>Resistors (₹1 each): </label><input type="number" id="resistor" value="0" min="0"><br>
-<label>Capacitors (₹3 each): </label><input type="number" id="capacitor" value="0" min="0"><br>
-<label>Diodes (₹5 each): </label><input type="number" id="diode" value="0" min="0"><br>
-<label>Transistors (₹8 each): </label><input type="number" id="transistor" value="0" min="0"><br>
-<label>LEDs (₹2 each): </label><input type="number" id="led" value="0" min="0"><br>
-<label>555 Timer IC (₹10 each): </label><input type="number" id="ic555" value="0" min="0"><br>
-<label>Arduino Uno (₹400 each): </label><input type="number" id="arduino" value="0" min="0"><br>
-<label>Breadboards (₹60 each): </label><input type="number" id="breadboard" value="0" min="0"><br>
-<label>Jumper Wire Sets (₹20 each): </label><input type="number" id="jumper" value="0" min="0"><br>
-<label>LM317 Regulator (₹15 each): </label><input type="number" id="lm317" value="0" min="0"><br>
+    <p id="totalCost">Total Estimated Cost: ₹0</p>
 
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            total += parseInt(document.getElementById("resistor").value) * 1;
+            total += parseInt(document.getElementById("capacitor").value) * 3;
+            total += parseInt(document.getElementById("diode").value) * 5;
+            total += parseInt(document.getElementById("transistor").value) * 8;
+            total += parseInt(document.getElementById("led").value) * 2;
+            total += parseInt(document.getElementById("ic555").value) * 10;
+            total += parseInt(document.getElementById("arduino").value) * 400;
+            total += parseInt(document.getElementById("breadboard").value) * 60;
+            total += parseInt(document.getElementById("jumper").value) * 20;
+            total += parseInt(document.getElementById("lm317").value) * 15;
 
-      let total = 0;
-      for (const id in prices) {
-        const qty = parseInt(document.getElementById(id).value) || 0;
-        total += qty * prices[id];
-      }
-
-      document.getElementById("total").innerText = `Total Estimated Cost: ₹${total}`;
-    }
-  </script>
+            document.getElementById("totalCost").innerText = "Total Estimated Cost: ₹" + total;
+        }
+    </script>
 </body>
 </html>
+
 
