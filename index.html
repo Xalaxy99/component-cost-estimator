@@ -1,75 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About This Website</title>
+  <meta charset="UTF-8">
+  <title>Component Cost Estimator</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px;
-      background: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
       color: #333;
-      max-width: 800px;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
       margin: auto;
+      padding: 20px;
     }
-    h1 {
-      color: #0d6efd;
-      font-size: 2.2em;
-      margin-bottom: 20px;
+
+    h2 {
+      margin-top: 40px;
+      color: #4CAF50;
     }
-    p {
-      line-height: 1.6;
-      font-size: 1.1em;
+
+    .component-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background-color: #fff;
     }
-    ul {
-      margin-top: 10px;
-      padding-left: 20px;
+
+    .component-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
     }
-    li {
-      margin-bottom: 10px;
+
+    .component-info h3 {
+      margin: 0 0 5px;
     }
-    a {
-      text-decoration: none;
-      color: #0d6efd;
-      display: inline-block;
-      margin-top: 30px;
+
+    .quantity {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .quantity button {
+      padding: 4px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .checkout-box {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .checkout-box h3 {
+      margin-bottom: 16px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+
+    .total {
       font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
+      font-size: 18px;
+      color: #4CAF50;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Component Cost Estimator</h1>
+    <p>For Engineering Projects ⚙️</p>
+  </header>
 
-  <h1>Welcome to Component Cost Estimator</h1>
+  <div class="container">
+    <h2>🧰 Components</h2>
+    <div id="componentList">
+      <!-- Component Cards -->
+      <div class="component-card">
+        <img src="https://cdn.sparkfun.com//assets/parts/1/1/3/4/13260-01.jpg" alt="Resistor">
+        <div class="component-info">
+          <h3>Resistor (220Ω)</h3>
+          <p>Price: ₹2</p>
+          <div class="quantity">
+            <button onclick="updateQuantity('resistor', -1)">-</button>
+            <span id="resistor-qty">0</span>
+            <button onclick="updateQuantity('resistor', 1)">+</button>
+          </div>
+        </div>
+      </div>
 
-  <p>
-    This tool is built for engineering students and electronics hobbyists who want to estimate the cost of their projects without the hassle.
-  </p>
+      <div class="component-card">
+        <img src="https://5.imimg.com/data5/SELLER/Default/2021/5/DF/IC/XA/21617493/led-5mm-red.jpg" alt="LED">
+        <div class="component-info">
+          <h3>Red LED</h3>
+          <p>Price: ₹3</p>
+          <div class="quantity">
+            <button onclick="updateQuantity('led', -1)">-</button>
+            <span id="led-qty">0</span>
+            <button onclick="updateQuantity('led', 1)">+</button>
+          </div>
+        </div>
+      </div>
 
-  <p>
-    🔧 Features of this project:
-    <ul>
-      <li>Pre-loaded with common electronic components</li>
-      <li>Dynamic quantity selection with real-time cost updates</li>
-      <li>Automatic breakdown and checkout summary</li>
-      <li>Modern, responsive UI for quick navigation</li>
-    </ul>
-  </p>
+      <div class="component-card">
+        <img src="https://robu.in/wp-content/uploads/2018/11/Arduino-Uno-R3-1.jpg" alt="Arduino UNO">
+        <div class="component-info">
+          <h3>Arduino UNO</h3>
+          <p>Price: ₹450</p>
+          <div class="quantity">
+            <button onclick="updateQuantity('arduino', -1)">-</button>
+            <span id="arduino-qty">0</span>
+            <button onclick="updateQuantity('arduino', 1)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <p>
-    🚀 Future Upgrades:
-    <ul>
-      <li>Live pricing from IndiaMart and Amazon</li>
-      <li>Local storage to save carts</li>
-      <li>Mobile App version with login and history</li>
-      <li>Export as PDF or shareable project bill</li>
-    </ul>
-  </p>
+    <div class="checkout-box">
+      <h3>🧾 Checkout Summary</h3>
+      <div id="summary"></div>
+      <div class="total" id="totalCost">Total: ₹0</div>
+    </div>
+  </div>
 
-  <a href="index.html">← Back to Cost Estimator</a>
+  <script>
+    const prices = {
+      resistor: 2,
+      led: 3,
+      arduino: 450
+    };
 
+    const quantities = {
+      resistor: 0,
+      led: 0,
+      arduino: 0
+    };
+
+    function updateQuantity(component, change) {
+      quantities[component] += change;
+      if (quantities[component] < 0) quantities[component] = 0;
+
+      document.getElementById(`${component}-qty`).innerText = quantities[component];
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const summary = document.getElementById("summary");
+      summary.innerHTML = "";
+
+      let total = 0;
+
+      for (let component in quantities) {
+        const qty = quantities[component];
+        if (qty > 0) {
+          const itemTotal = qty * prices[component];
+          total += itemTotal;
+
+          summary.innerHTML += `
+            <div class="summary-item">
+              <span>${capitalize(component)} × ${qty} (₹${prices[component]} each)</span>
+              <span>₹${itemTotal}</span>
+            </div>
+          `;
+        }
+      }
+
+      document.getElementById("totalCost").innerText = `Total: ₹${total}`;
+    }
+
+    function capitalize(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+  </script>
 </body>
 </html>
