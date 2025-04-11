@@ -3,203 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Component Cost Estimator</title>
+  <title>About This Website</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      padding: 20px;
-      background: #f0f2f5;
-      margin: 0;
-    }
-    header {
-      background: #0d6efd;
-      color: white;
-      padding: 15px 30px;
-      text-align: center;
-    }
-    header a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: underline;
-      font-size: 16px;
+      padding: 40px;
+      background: #ffffff;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
     }
     h1 {
-      margin: 0;
+      color: #0d6efd;
+      font-size: 2.2em;
+      margin-bottom: 20px;
     }
-    .components {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 30px;
+    p {
+      line-height: 1.6;
+      font-size: 1.1em;
     }
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      width: 240px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: 0.3s;
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
     }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card h3 {
+    li {
       margin-bottom: 10px;
-      font-size: 18px;
-      color: #333;
     }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 15px;
-    }
-    .quantity-control button {
-      width: 30px;
-      height: 30px;
-      font-size: 20px;
+    a {
+      text-decoration: none;
+      color: #0d6efd;
+      display: inline-block;
+      margin-top: 30px;
       font-weight: bold;
-      border: none;
-      background: #0d6efd;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
     }
-    .quantity-control button:hover {
-      background: #0a58ca;
-    }
-    .breakdown, .checkout {
-      max-width: 700px;
-      margin: 40px auto 0;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .breakdown table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .breakdown th, .breakdown td {
-      text-align: center;
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    .checkout {
-      text-align: right;
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 20px;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Component Cost Estimator</h1>
-  <a href="intro.html">Website Introduction</a>
-</header>
+  <h1>Welcome to Component Cost Estimator</h1>
 
-<div class="components" id="component-list"></div>
+  <p>
+    This tool is built for engineering students and electronics hobbyists who want to estimate the cost of their projects without the hassle.
+  </p>
 
-<div class="breakdown">
-  <h2>Summary</h2>
-  <table id="summary-table">
-    <thead>
-      <tr>
-        <th>Component</th>
-        <th>Qty</th>
-        <th>Price</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Summary Rows -->
-    </tbody>
-  </table>
-</div>
+  <p>
+    🔧 Features of this project:
+    <ul>
+      <li>Pre-loaded with common electronic components</li>
+      <li>Dynamic quantity selection with real-time cost updates</li>
+      <li>Automatic breakdown and checkout summary</li>
+      <li>Modern, responsive UI for quick navigation</li>
+    </ul>
+  </p>
 
-<div class="checkout">
-  Total Cost: ₹<span id="total-cost">0</span>
-</div>
+  <p>
+    🚀 Future Upgrades:
+    <ul>
+      <li>Live pricing from IndiaMart and Amazon</li>
+      <li>Local storage to save carts</li>
+      <li>Mobile App version with login and history</li>
+      <li>Export as PDF or shareable project bill</li>
+    </ul>
+  </p>
 
-<script>
-  const components = [
-    { name: "Arduino Uno", price: 600 },
-    { name: "Breadboard", price: 120 },
-    { name: "Jumper Wires", price: 20 },
-    { name: "LED Pack", price: 50 },
-    { name: "Resistor Kit", price: 80 },
-    { name: "Capacitor Kit", price: 90 },
-    { name: "L298N Motor Driver", price: 150 },
-    { name: "Ultrasonic Sensor", price: 75 },
-    { name: "IR Sensor Module", price: 45 },
-    { name: "ESP32 WiFi Board", price: 320 },
-    { name: "DC Gear Motor", price: 130 },
-    { name: "Servo Motor", price: 180 },
-    { name: "Li-ion Battery 3.7V", price: 100 },
-    { name: "Relay Module 5V", price: 60 }
-  ];
-
-  const quantities = {};
-
-  function updateSummary() {
-    const tbody = document.querySelector("#summary-table tbody");
-    tbody.innerHTML = "";
-
-    let totalCost = 0;
-
-    for (const item of components) {
-      const qty = quantities[item.name] || 0;
-      if (qty > 0) {
-        const subtotal = qty * item.price;
-        totalCost += subtotal;
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>${qty}</td>
-          <td>₹${item.price}</td>
-          <td>₹${subtotal}</td>
-        `;
-        tbody.appendChild(row);
-      }
-    }
-
-    document.getElementById("total-cost").textContent = totalCost;
-  }
-
-  function renderComponents() {
-    const container = document.getElementById("component-list");
-
-    components.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "card";
-
-      card.innerHTML = `
-        <h3>${item.name}</h3>
-        <p>₹${item.price} each</p>
-        <div class="quantity-control">
-          <button onclick="changeQty('${item.name}', -1)">-</button>
-          <span id="qty-${item.name}">0</span>
-          <button onclick="changeQty('${item.name}', 1)">+</button>
-        </div>
-      `;
-
-      container.appendChild(card);
-    });
-  }
-
-  function changeQty(name, delta) {
-    quantities[name] = Math.max(0, (quantities[name] || 0) + delta);
-    document.getElementById(`qty-${name}`).textContent = quantities[name];
-    updateSummary();
-  }
-
-  renderComponents();
-</script>
+  <a href="index.html">← Back to Cost Estimator</a>
 
 </body>
 </html>
