@@ -8,6 +8,7 @@
 </head>
 <body>
   <header>
+    <button class="toggle-theme" onclick="toggleDarkMode()">🌗</button>
     <h1>Component Cost Estimator</h1>
   </header>
 
@@ -133,5 +134,10 @@
 
     window.onload = renderComponents;
   </script>
+  function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
 </body>
 </html>
+
+
