@@ -116,3 +116,12 @@ button {
   padding: 0.3rem 0.6rem;
   cursor: pointer;
 }
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .component-card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
