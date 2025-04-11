@@ -1,25 +1,118 @@
+:root {
+  --bg: #f2f2f2;
+  --text: #222;
+  --card: #fff;
+  --accent: #007bff;
+}
+
+body.dark-mode {
+  --bg: #1e1e1e;
+  --text: #f2f2f2;
+  --card: #2c2c2c;
+  --accent: #0d6efd;
+}
+
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  background-color: #f1f1f1;
-  color: #333;
+  font-family: Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
 }
 
 header {
-  background-color: #4CAF50;
+  background-color: var(--accent);
   color: white;
-  padding: 16px;
+  padding: 1rem;
   text-align: center;
 }
 
-.container {
-  max-width: 900px;
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 2rem;
+  max-width: 1200px;
   margin: auto;
-  padding: 20px;
 }
 
-h2 {
-  margin-top: 40px;
-  color: #4CAF50;
+.component-list, .cart {
+  background-color: var(--card);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.component-item {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  background: var(--bg);
+}
+
+.component-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quantity button {
+  padding: 0.3rem 0.6rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity span {
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.cart-item {
+  margin-bottom: 0.5rem;
+}
+
+#total-price {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-theme {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
 }
