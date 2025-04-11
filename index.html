@@ -12,7 +12,20 @@
 
   <div class="container">
     <h2>Enter Details Below</h2>
-    <!-- We'll add form here later -->
+    <form id="costForm">
+      <label for="componentName">Component Name:</label>
+      <input type="text" id="componentName" name="componentName" required>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" required>
+
+      <label for="unitCost">Unit Cost (₹):</label>
+      <input type="number" id="unitCost" name="unitCost" required>
+
+      <button type="submit">Calculate Total Cost</button>
+    </form>
+
+    <div id="result"></div>
   </div>
 </body>
 </html>
