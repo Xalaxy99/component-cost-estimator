@@ -13,6 +13,18 @@
   </header>
   
   <main>
+    <div class="filter-bar">
+  <label for="categoryFilter">Filter by Category:</label>
+  <select id="categoryFilter" onchange="filterComponents()">
+    <option value="all">All</option>
+    <option value="Microcontrollers">Microcontrollers</option>
+    <option value="Sensors">Sensors</option>
+    <option value="Passive Components">Passive Components</option>
+    <option value="Motors">Motors</option>
+    <option value="Miscellaneous">Miscellaneous</option>
+  </select>
+</div>
+
     <!-- Updated Section -->
     <section id="component-list" class="section">
       <h2>Available Components</h2>
