@@ -1,129 +1,123 @@
-:root {
-  --bg: #f2f2f2;
-  --text: #222;
-  --card: #fff;
-  --accent: #007bff;
-}
-
-body.dark-mode {
-  --bg: #1e1e1e;
-  --text: #f2f2f2;
-  --card: #2c2c2c;
-  --accent: #0d6efd;
-}
-
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  transition: background 0.3s, color 0.3s;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  color: #333;
 }
 
 header {
-  background-color: var(--accent);
+  background-color: #007acc;
   color: white;
-  padding: 1rem;
+  padding: 15px;
   text-align: center;
+  position: sticky;
+  top: 0;
+}
+
+header button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  padding: 8px 12px;
+  border: none;
+  background: white;
+  color: #007acc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: auto;
+  padding: 20px;
 }
 
-.component-list, .cart {
-  background-color: var(--card);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.section {
+  margin-bottom: 40px;
 }
 
 .components-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .component-item {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  border-radius: 6px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   text-align: center;
-  background: var(--bg);
 }
 
 .component-item img {
-  width: 100%;
-  height: 120px;
-  object-fit: contain;
+  width: 100px;
+  height: auto;
   margin-bottom: 10px;
 }
 
 .quantity {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 10px;
 }
 
 .quantity button {
-  padding: 0.3rem 0.6rem;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 16px;
+  margin: 0 5px;
   cursor: pointer;
 }
 
-.quantity span {
-  width: 20px;
-  display: inline-block;
-  text-align: center;
+.cart {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item {
-  margin-bottom: 0.5rem;
+  margin: 10px 0;
+  font-size: 16px;
 }
 
 #total-price {
+  font-size: 18px;
   font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 15px;
 }
 
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: var(--accent);
+  background-color: #007acc;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 8px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.toggle-theme {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background: none;
-  color: white;
-  border: 1px solid white;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
+button:hover {
+  background-color: #005fa3;
 }
+
+/* Dark Mode */
 .dark-mode {
   background-color: #121212;
-  color: #ffffff;
+  color: #f0f0f0;
 }
 
-.dark-mode .component-card {
+.dark-mode header {
   background-color: #1e1e1e;
-  border: 1px solid #333;
+}
+
+.dark-mode .component-item {
+  background-color: #1f1f1f;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.dark-mode .cart {
+  background-color: #1f1f1f;
+  border: 1px solid #444;
 }
 
 .dark-mode button {
@@ -131,9 +125,6 @@ button {
   color: #fff;
 }
 
-.dark-mode input {
-  background-color: #1e1e1e;
-  color: #fff;
-  border: 1px solid #444;
+.dark-mode button:hover {
+  background-color: #555;
 }
-
