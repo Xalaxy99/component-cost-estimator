@@ -137,6 +137,31 @@
       a.download = "component_cart.csv";
       a.click();
     }
+ function processProjectInput() {
+      const input = document.getElementById("projectInput").value.toLowerCase();
+      const outputDiv = document.getElementById("projectOutput");
+      outputDiv.innerHTML = "";
+
+      let total = 0;
+      components.forEach(comp => {
+        let match = input.match(new RegExp(`${comp.name.toLowerCase()}(?:\\s*x\\s*(\\d+))?`));
+        if (match) {
+          let qty = match[1] ? parseInt(match[1]) : 1;
+          let cost = qty * comp.price;
+          total += cost;
+
+          const item = document.createElement("div");
+          item.className = "cart-item";
+          item.innerText = `${comp.name} x ${qty} = ₹${cost}`;
+          outputDiv.appendChild(item);
+        }
+      });
+
+      const totalDiv = document.createElement("div");
+      totalDiv.id = "total-price";
+      totalDiv.innerText = `Estimated Total: ₹${total}`;
+      outputDiv.appendChild(totalDiv);
+    }
 
     window.onload = renderComponents;
   </script>
