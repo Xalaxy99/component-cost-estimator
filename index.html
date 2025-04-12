@@ -37,37 +37,171 @@
     }
 
     const components = [
-      {
-        name: "Arduino Uno",
-        price: 500,
-        image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg"
-      },
-      {
-        name: "Breadboard",
-        price: 100,
-        image: "https://m.media-amazon.com/images/I/61n+Rpq8xgL._SX522_.jpg"
-      },
-      {
-        name: "Jumper Wires (Male-Female)",
-        price: 50,
-        image: "https://m.media-amazon.com/images/I/71kKSkL+J3L._SX522_.jpg"
-      },
-      {
-        name: "Resistor Pack (100 pcs)",
-        price: 80,
-        image: "https://m.media-amazon.com/images/I/81VElry8UuL._SX522_.jpg"
-      },
-      {
-        name: "Capacitor Kit",
-        price: 120,
-        image: "https://m.media-amazon.com/images/I/71wP6cD7bQL._SX522_.jpg"
-      },
-      {
-        name: "IR Sensor",
-        price: 70,
-        image: "https://m.media-amazon.com/images/I/61pJPzgrpxL._SX522_.jpg"
-      }
-    ];
+  // MICROCONTROLLERS
+  {
+    name: "Arduino Uno",
+    price: 500,
+    image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg",
+    category: "Microcontrollers"
+  },
+  {
+    name: "ESP32 Wi-Fi Module",
+    price: 350,
+    image: "https://m.media-amazon.com/images/I/61pIPtL2GDL._SX522_.jpg",
+    category: "Microcontrollers"
+  },
+  {
+    name: "Raspberry Pi Pico",
+    price: 400,
+    image: "https://m.media-amazon.com/images/I/61r9Mepj9bL._SX522_.jpg",
+    category: "Microcontrollers"
+  },
+
+  // PASSIVE COMPONENTS
+  {
+    name: "Resistor Pack (100 pcs)",
+    price: 80,
+    image: "https://m.media-amazon.com/images/I/81VElry8UuL._SX522_.jpg",
+    category: "Passive Components"
+  },
+  {
+    name: "Capacitor Kit",
+    price: 120,
+    image: "https://m.media-amazon.com/images/I/71wP6cD7bQL._SX522_.jpg",
+    category: "Passive Components"
+  },
+  {
+    name: "Inductor Set",
+    price: 140,
+    image: "https://m.media-amazon.com/images/I/61um4HegN-L._SX522_.jpg",
+    category: "Passive Components"
+  },
+
+  // MOTORS
+  {
+    name: "DC Geared Motor",
+    price: 150,
+    image: "https://m.media-amazon.com/images/I/61YrEjOcVwL._SX522_.jpg",
+    category: "Motors"
+  },
+  {
+    name: "Servo Motor (SG90)",
+    price: 120,
+    image: "https://m.media-amazon.com/images/I/51pV7c7FcdL._SX522_.jpg",
+    category: "Motors"
+  },
+  {
+    name: "Stepper Motor (28BYJ-48)",
+    price: 220,
+    image: "https://m.media-amazon.com/images/I/61azgRUW+2L._SX522_.jpg",
+    category: "Motors"
+  },
+
+  // SENSORS & MODULES
+  {
+    name: "IR Sensor",
+    price: 70,
+    image: "https://m.media-amazon.com/images/I/61pJPzgrpxL._SX522_.jpg",
+    category: "Sensors & Modules"
+  },
+  {
+    name: "Ultrasonic Sensor (HC-SR04)",
+    price: 95,
+    image: "https://m.media-amazon.com/images/I/61frOeOq3CL._SX522_.jpg",
+    category: "Sensors & Modules"
+  },
+  {
+    name: "DHT11 Temperature Sensor",
+    price: 60,
+    image: "https://m.media-amazon.com/images/I/71o7j7vzpFL._SX522_.jpg",
+    category: "Sensors & Modules"
+  },
+
+  // WIRES & CONNECTORS
+  {
+    name: "Jumper Wires (Male-Female)",
+    price: 50,
+    image: "https://m.media-amazon.com/images/I/71kKSkL+J3L._SX522_.jpg",
+    category: "Wires & Connectors"
+  },
+  {
+    name: "Breadboard",
+    price: 100,
+    image: "https://m.media-amazon.com/images/I/61n+Rpq8xgL._SX522_.jpg",
+    category: "Wires & Connectors"
+  },
+  {
+    name: "Male Header Pins (40 pin)",
+    price: 20,
+    image: "https://m.media-amazon.com/images/I/71k7xMW2e5L._SX522_.jpg",
+    category: "Wires & Connectors"
+  },
+
+  // POWER & BATTERIES
+  {
+    name: "9V Battery + Clip",
+    price: 40,
+    image: "https://m.media-amazon.com/images/I/61mfJ4OCLtL._SX522_.jpg",
+    category: "Power"
+  },
+  {
+    name: "Battery Holder (4xAA)",
+    price: 35,
+    image: "https://m.media-amazon.com/images/I/71Y8pA6tkZL._SX522_.jpg",
+    category: "Power"
+  },
+  {
+    name: "LM7805 Voltage Regulator",
+    price: 25,
+    image: "https://m.media-amazon.com/images/I/51l0eNv3PoL._SX522_.jpg",
+    category: "Power"
+  }
+      // --- Additional MQ Sensors ---
+{
+  name: "MQ-2 Gas Sensor (Smoke/LPG/CO)",
+  price: 95,
+  image: "https://m.media-amazon.com/images/I/61LbK8VbcrL._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-3 Gas Sensor (Alcohol/Ethanol)",
+  price: 99,
+  image: "https://m.media-amazon.com/images/I/71LjHnGGxvL._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-5 Gas Sensor (LPG/CH4/NG)",
+  price: 105,
+  image: "https://m.media-amazon.com/images/I/71lhGKhfEfL._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-6 Gas Sensor (LPG/Butane/Propane)",
+  price: 110,
+  image: "https://m.media-amazon.com/images/I/61ZmqWfgrtL._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-7 Gas Sensor (Carbon Monoxide)",
+  price: 100,
+  image: "https://m.media-amazon.com/images/I/61xJyrU6gbL._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-8 Gas Sensor (Hydrogen H2)",
+  price: 120,
+  image: "https://m.media-amazon.com/images/I/71HcI50nK1L._SX522_.jpg",
+  category: "Sensors & Modules"
+},
+{
+  name: "MQ-135 Gas Sensor (Air Quality/CO2/Ammonia)",
+  price: 130,
+  image: "https://m.media-amazon.com/images/I/61X3dPYpRmL._SX522_.jpg",
+  category: "Sensors & Modules"
+}
+
+];
+
 
     let cart = {};
 
