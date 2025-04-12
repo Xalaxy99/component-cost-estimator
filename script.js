@@ -1,16 +1,56 @@
 document.addEventListener('DOMContentLoaded', function () {
   // COMPONENT LIST
   const components = [
-    { name: "Arduino Uno", price: 800 },
-    { name: "Raspberry Pi 4", price: 4500 },
-    { name: "Breadboard", price: 100 },
-    { name: "Jumper Wires", price: 150 },
-    { name: "L298N Motor Driver", price: 200 },
-    { name: "Ultrasonic Sensor", price: 120 },
-    { name: "Servo Motor", price: 250 },
-    { name: "IR Sensor", price: 90 },
-    { name: "DC Motor", price: 180 }
-  ];
+  {
+    name: "Arduino Uno",
+    price: 500,
+    image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg",
+    category: "Microcontrollers"
+  },
+  {
+    name: "ESP32",
+    price: 700,
+    image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg",
+    category: "Microcontrollers"
+  },
+  {
+    name: "MQ2 Gas Sensor",
+    price: 150,
+    image: "https://m.media-amazon.com/images/I/61uN2W1ZQRL._SX522_.jpg",
+    category: "Sensors"
+  },
+  {
+    name: "MQ8 Hydrogen Sensor",
+    price: 180,
+    image: "https://m.media-amazon.com/images/I/61uN2W1ZQRL._SX522_.jpg",
+    category: "Sensors"
+  },
+  {
+    name: "IR Sensor",
+    price: 70,
+    image: "https://m.media-amazon.com/images/I/61pJPzgrpxL._SX522_.jpg",
+    category: "Sensors"
+  },
+  {
+    name: "DC Motor (300 RPM)",
+    price: 180,
+    image: "https://m.media-amazon.com/images/I/41yU0DCU3sL._SX300_SY300_QL70_FMwebp_.jpg",
+    category: "Motors"
+  },
+  {
+    name: "Jumper Wires (Male to Male)",
+    price: 40,
+    image: "https://m.media-amazon.com/images/I/61Z9Fy3qUIL._SX522_.jpg",
+    category: "Passive Components"
+  },
+  {
+    name: "Breadboard",
+    price: 100,
+    image: "https://m.media-amazon.com/images/I/61n+Rpq8xgL._SX522_.jpg",
+    category: "Passive Components"
+  }
+];
+
 
   const container = document.getElementById("component-list");
   const cartContainer = document.getElementById("cart");
