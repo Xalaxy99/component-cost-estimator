@@ -9,15 +9,15 @@
 <body>
   <header>
     <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-    <div id="components-container"></div>
     <h1>Component Cost Estimator</h1>
   </header>
 
   <main>
-    <section class="component-list">
+    <!-- Updated Section -->
+    <section id="component-list" class="section">
       <h2>Available Components</h2>
       <div id="components-container" class="components-grid">
-        <!-- Components will be loaded here -->
+        <!-- JavaScript fills this in -->
       </div>
     </section>
 
@@ -32,6 +32,10 @@
   </main>
 
   <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
     const components = [
       {
         name: "Arduino Uno",
@@ -69,6 +73,7 @@
 
     function renderComponents() {
       const container = document.getElementById("components-container");
+      container.innerHTML = ""; // Clear before render
       components.forEach((comp, index) => {
         const item = document.createElement("div");
         item.className = "component-item";
@@ -134,12 +139,6 @@
     }
 
     window.onload = renderComponents;
-  <script>
-  function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-  }
-</script>
+  </script>
 </body>
 </html>
-
-
