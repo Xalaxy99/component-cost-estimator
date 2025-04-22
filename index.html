@@ -2,36 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Component Cost Estimator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Component Cost Estimator</h1>
-    <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
   </header>
 
-  <div class="container">
-    <label for="categoryFilter">Filter by Category:</label>
-    <select id="categoryFilter">
-      <option value="All">All</option>
-      <option value="Microcontrollers">Microcontrollers</option>
-      <option value="Sensors">Sensors</option>
-      <option value="Passive Components">Passive Components</option>
-      <option value="Motors">Motors</option>
-      <option value="Miscellaneous">Miscellaneous</option>
-    </select>
+  <main>
+    <section class="filter">
+      <label for="categoryFilter">Filter by Category:</label>
+      <select id="categoryFilter">
+        <option value="All">All</option>
+        <option value="Microcontrollers">Microcontrollers</option>
+        <option value="Sensors">Sensors</option>
+        <option value="Passive Components">Passive Components</option>
+        <option value="Motors">Motors</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+      </select>
+    </section>
 
-    <h2>Available Components</h2>
-    <div id="componentsList" class="component-list"></div>
+    <section id="componentsList" class="components"></section>
 
-    <div class="cart-summary">
-      <h3>Cart Summary</h3>
-      <div id="cart"></div>
-      <button id="exportBtn">Export Price List</button>
-    </div>
-  </div>
+    <section class="cart">
+      <h2>Cart Summary</h2>
+      <div id="cartSummary">No components added yet.</div>
+      <button onclick="exportPriceList()">Export Price List</button>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
