@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // COMPONENT LIST
-  const components = [
+const components = [
+  // Microcontrollers
   {
     name: "Arduino Uno",
     price: 500,
@@ -14,6 +13,20 @@ document.addEventListener('DOMContentLoaded', function () {
     category: "Microcontrollers"
   },
   {
+    name: "Raspberry Pi Pico",
+    price: 350,
+    image: "https://m.media-amazon.com/images/I/710l5V8dVgL._SX522_.jpg",
+    category: "Microcontrollers"
+  },
+  {
+    name: "NodeMCU",
+    price: 280,
+    image: "https://m.media-amazon.com/images/I/71IEaLJNRtL._SX522_.jpg",
+    category: "Microcontrollers"
+  },
+
+  // Sensors
+  {
     name: "MQ2 Gas Sensor",
     price: 150,
     image: "https://m.media-amazon.com/images/I/61uN2W1ZQRL._SX522_.jpg",
@@ -21,98 +34,104 @@ document.addEventListener('DOMContentLoaded', function () {
   },
   {
     name: "MQ8 Hydrogen Sensor",
-    price: 180,
-    image: "https://m.media-amazon.com/images/I/61uN2W1ZQRL._SX522_.jpg",
+    price: 200,
+    image: "https://m.media-amazon.com/images/I/61Cdz66MdUL._SX522_.jpg",
     category: "Sensors"
   },
   {
-    name: "IR Sensor",
-    price: 70,
-    image: "https://m.media-amazon.com/images/I/61pJPzgrpxL._SX522_.jpg",
+    name: "Ultrasonic Sensor (HC-SR04)",
+    price: 90,
+    image: "https://m.media-amazon.com/images/I/71+zGHVjJQL._SX522_.jpg",
     category: "Sensors"
   },
   {
-    name: "DC Motor (300 RPM)",
-    price: 180,
-    image: "https://m.media-amazon.com/images/I/41yU0DCU3sL._SX300_SY300_QL70_FMwebp_.jpg",
+    name: "IR Obstacle Sensor",
+    price: 40,
+    image: "https://m.media-amazon.com/images/I/71zgpvH6rGL._SX522_.jpg",
+    category: "Sensors"
+  },
+  {
+    name: "DHT11 Temperature & Humidity Sensor",
+    price: 120,
+    image: "https://m.media-amazon.com/images/I/61IgrNAbN1L._SX522_.jpg",
+    category: "Sensors"
+  },
+
+  // Motors
+  {
+    name: "BO Motor",
+    price: 75,
+    image: "https://m.media-amazon.com/images/I/51Hf8DhgSBL._SX522_.jpg",
     category: "Motors"
   },
   {
-    name: "Jumper Wires (Male to Male)",
+    name: "Servo Motor SG90",
+    price: 130,
+    image: "https://m.media-amazon.com/images/I/61sdEayE8wL._SX522_.jpg",
+    category: "Motors"
+  },
+  {
+    name: "Stepper Motor 28BYJ-48",
+    price: 160,
+    image: "https://m.media-amazon.com/images/I/71Sz8ykqFlL._SX522_.jpg",
+    category: "Motors"
+  },
+  {
+    name: "DC Motor",
+    price: 50,
+    image: "https://m.media-amazon.com/images/I/71mPrlspDJL._SX522_.jpg",
+    category: "Motors"
+  },
+
+  // Passive Components
+  {
+    name: "Resistor Pack (220Ω - 1kΩ)",
     price: 40,
-    image: "https://m.media-amazon.com/images/I/61Z9Fy3qUIL._SX522_.jpg",
+    image: "https://m.media-amazon.com/images/I/71Te+B4m2dL._SX522_.jpg",
+    category: "Passive Components"
+  },
+  {
+    name: "Capacitor Pack",
+    price: 50,
+    image: "https://m.media-amazon.com/images/I/71O4tVmJpsL._SX522_.jpg",
     category: "Passive Components"
   },
   {
     name: "Breadboard",
-    price: 100,
-    image: "https://m.media-amazon.com/images/I/61n+Rpq8xgL._SX522_.jpg",
+    price: 80,
+    image: "https://m.media-amazon.com/images/I/61cfQ+IExaL._SX522_.jpg",
     category: "Passive Components"
+  },
+  {
+    name: "Jumper Wires (Male to Male)",
+    price: 60,
+    image: "https://m.media-amazon.com/images/I/71YlaeW9YIL._SX522_.jpg",
+    category: "Passive Components"
+  },
+
+  // Miscellaneous
+  {
+    name: "L298N Motor Driver Module",
+    price: 150,
+    image: "https://m.media-amazon.com/images/I/61e2DKJ0cuL._SX522_.jpg",
+    category: "Miscellaneous"
+  },
+  {
+    name: "Relay Module 5V",
+    price: 100,
+    image: "https://m.media-amazon.com/images/I/51hHMKGLKRL._SX522_.jpg",
+    category: "Miscellaneous"
+  },
+  {
+    name: "OLED Display 0.96 inch",
+    price: 250,
+    image: "https://m.media-amazon.com/images/I/61q6pSh+41L._SX522_.jpg",
+    category: "Miscellaneous"
+  },
+  {
+    name: "9V Battery with Clip",
+    price: 45,
+    image: "https://m.media-amazon.com/images/I/51duvRUTdWL._SX522_.jpg",
+    category: "Miscellaneous"
   }
 ];
-
-
-  const container = document.getElementById("component-list");
-  const cartContainer = document.getElementById("cart");
-  const totalElement = document.getElementById("total");
-  const cart = [];
-
-  components.forEach(component => {
-    const card = document.createElement("div");
-    card.className = "component-card";
-    card.innerHTML = `
-      <h3>${component.name}</h3>
-      <p>Price: ₹${component.price}</p>
-      <input type="number" value="1" min="1" class="quantity-input">
-      <button class="add-to-cart">Add to Cart</button>
-    `;
-    card.querySelector("button").addEventListener("click", () => {
-      const qty = parseInt(card.querySelector("input").value);
-      addToCart(component, qty);
-    });
-    container.appendChild(card);
-  });
-
-  function addToCart(component, quantity) {
-    const existing = cart.find(item => item.name === component.name);
-    if (existing) {
-      existing.quantity += quantity;
-    } else {
-      cart.push({ ...component, quantity });
-    }
-    renderCart();
-  }
-
-  function renderCart() {
-    cartContainer.innerHTML = "";
-    let total = 0;
-    cart.forEach(item => {
-      const itemTotal = item.price * item.quantity;
-      total += itemTotal;
-      const div = document.createElement("div");
-      div.textContent = `${item.name} x${item.quantity} - ₹${itemTotal}`;
-      cartContainer.appendChild(div);
-    });
-    totalElement.textContent = total;
-  }
-
-  // EXPORT BUTTON
-  document.getElementById("export-btn").addEventListener("click", function () {
-    let csvContent = "data:text/csv;charset=utf-8,Component,Quantity,Unit Price,Total\n";
-    cart.forEach(item => {
-      csvContent += `${item.name},${item.quantity},${item.price},${item.quantity * item.price}\n`;
-    });
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "component_price_list.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-
-  // DARK MODE TOGGLE
-  document.getElementById("dark-mode-toggle").addEventListener("click", function () {
-    document.body.classList.toggle("dark-mode");
-  });
-});
