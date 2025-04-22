@@ -1,137 +1,88 @@
-const components = [
-  // Microcontrollers
-  {
-    name: "Arduino Uno",
-    price: 500,
-    image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg",
-    category: "Microcontrollers"
-  },
-  {
-    name: "ESP32",
-    price: 700,
-    image: "https://m.media-amazon.com/images/I/61TXh8tgn8L.jpg",
-    category: "Microcontrollers"
-  },
-  {
-    name: "Raspberry Pi Pico",
-    price: 350,
-    image: "https://m.media-amazon.com/images/I/710l5V8dVgL._SX522_.jpg",
-    category: "Microcontrollers"
-  },
-  {
-    name: "NodeMCU",
-    price: 280,
-    image: "https://m.media-amazon.com/images/I/71IEaLJNRtL._SX522_.jpg",
-    category: "Microcontrollers"
-  },
+let components = [];
+let cart = [];
 
-  // Sensors
-  {
-    name: "MQ2 Gas Sensor",
-    price: 150,
-    image: "https://m.media-amazon.com/images/I/61uN2W1ZQRL._SX522_.jpg",
-    category: "Sensors"
-  },
-  {
-    name: "MQ8 Hydrogen Sensor",
-    price: 200,
-    image: "https://m.media-amazon.com/images/I/61Cdz66MdUL._SX522_.jpg",
-    category: "Sensors"
-  },
-  {
-    name: "Ultrasonic Sensor (HC-SR04)",
-    price: 90,
-    image: "https://m.media-amazon.com/images/I/71+zGHVjJQL._SX522_.jpg",
-    category: "Sensors"
-  },
-  {
-    name: "IR Obstacle Sensor",
-    price: 40,
-    image: "https://m.media-amazon.com/images/I/71zgpvH6rGL._SX522_.jpg",
-    category: "Sensors"
-  },
-  {
-    name: "DHT11 Temperature & Humidity Sensor",
-    price: 120,
-    image: "https://m.media-amazon.com/images/I/61IgrNAbN1L._SX522_.jpg",
-    category: "Sensors"
-  },
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("components.json")
+    .then(res => res.json())
+    .then(data => {
+      components = data;
+      renderComponents();
+    });
 
-  // Motors
-  {
-    name: "BO Motor",
-    price: 75,
-    image: "https://m.media-amazon.com/images/I/51Hf8DhgSBL._SX522_.jpg",
-    category: "Motors"
-  },
-  {
-    name: "Servo Motor SG90",
-    price: 130,
-    image: "https://m.media-amazon.com/images/I/61sdEayE8wL._SX522_.jpg",
-    category: "Motors"
-  },
-  {
-    name: "Stepper Motor 28BYJ-48",
-    price: 160,
-    image: "https://m.media-amazon.com/images/I/71Sz8ykqFlL._SX522_.jpg",
-    category: "Motors"
-  },
-  {
-    name: "DC Motor",
-    price: 50,
-    image: "https://m.media-amazon.com/images/I/71mPrlspDJL._SX522_.jpg",
-    category: "Motors"
-  },
+  document.getElementById("categoryFilter").addEventListener("change", renderComponents);
+  document.getElementById("exportBtn").addEventListener("click", exportCartToText);
+  document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+});
 
-  // Passive Components
-  {
-    name: "Resistor Pack (220Ω - 1kΩ)",
-    price: 40,
-    image: "https://m.media-amazon.com/images/I/71Te+B4m2dL._SX522_.jpg",
-    category: "Passive Components"
-  },
-  {
-    name: "Capacitor Pack",
-    price: 50,
-    image: "https://m.media-amazon.com/images/I/71O4tVmJpsL._SX522_.jpg",
-    category: "Passive Components"
-  },
-  {
-    name: "Breadboard",
-    price: 80,
-    image: "https://m.media-amazon.com/images/I/61cfQ+IExaL._SX522_.jpg",
-    category: "Passive Components"
-  },
-  {
-    name: "Jumper Wires (Male to Male)",
-    price: 60,
-    image: "https://m.media-amazon.com/images/I/71YlaeW9YIL._SX522_.jpg",
-    category: "Passive Components"
-  },
+function renderComponents() {
+  const filter = document.getElementById("categoryFilter").value;
+  const container = document.getElementById("componentsList");
+  container.innerHTML = "";
 
-  // Miscellaneous
-  {
-    name: "L298N Motor Driver Module",
-    price: 150,
-    image: "https://m.media-amazon.com/images/I/61e2DKJ0cuL._SX522_.jpg",
-    category: "Miscellaneous"
-  },
-  {
-    name: "Relay Module 5V",
-    price: 100,
-    image: "https://m.media-amazon.com/images/I/51hHMKGLKRL._SX522_.jpg",
-    category: "Miscellaneous"
-  },
-  {
-    name: "OLED Display 0.96 inch",
-    price: 250,
-    image: "https://m.media-amazon.com/images/I/61q6pSh+41L._SX522_.jpg",
-    category: "Miscellaneous"
-  },
-  {
-    name: "9V Battery with Clip",
-    price: 45,
-    image: "https://m.media-amazon.com/images/I/51duvRUTdWL._SX522_.jpg",
-    category: "Miscellaneous"
+  let filtered = filter === "All" ? components : components.filter(c => c.category === filter);
+  filtered.forEach(comp => {
+    const div = document.createElement("div");
+    div.className = "component-card";
+    div.innerHTML = `
+      <h3>${comp.name}</h3>
+      <p>Price: ₹${comp.price}</p>
+      <input type="number" min="1" value="1" id="qty-${comp.name}" />
+      <button onclick="addToCart('${comp.name}', ${comp.price})">Add</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function addToCart(name, price) {
+  const qty = parseInt(document.getElementById(`qty-${name}`).value);
+  const existing = cart.find(item => item.name === name);
+
+  if (existing) existing.qty += qty;
+  else cart.push({ name, price, qty });
+
+  renderCart();
+}
+
+function renderCart() {
+  const cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartDiv.innerHTML = "<p>No components added yet.</p>";
+    return;
   }
-];
+
+  let total = 0;
+  cart.forEach(item => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    cartDiv.innerHTML += `<p>${item.name} x ${item.qty} = ₹${subtotal}</p>`;
+  });
+
+  cartDiv.innerHTML += `<hr><p><strong>Total: ₹${total}</strong></p>`;
+}
+
+function exportCartToText() {
+  if (cart.length === 0) return alert("Cart is empty!");
+  let text = "Component Price List:\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    const sub = item.price * item.qty;
+    text += `${item.name} x ${item.qty} = ₹${sub}\n`;
+    total += sub;
+  });
+
+  text += `\nTotal = ₹${total}`;
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "price_list.txt";
+  a.click();
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
